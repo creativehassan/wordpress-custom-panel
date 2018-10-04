@@ -1,0 +1,1 @@
+<input type="hidden" name="<?php echo $field['name']; ?>" value="<?php echo $field['value']; ?>" class="<?php echo $field['class']; ?>" id="<?php echo $field['id']; ?>">
