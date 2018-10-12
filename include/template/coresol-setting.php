@@ -29,7 +29,7 @@
 						<h3 class="coresol-settings-form-header"><?php echo $nav['title']; ?></h3>
 						<p><?php echo $nav['description']; ?></p>
 							<div class="coresol-settings-form-content">
-								<?php $this->coresol_generate_fields( $nav['fields'] ); ?>
+								<?php $this->coresol_generate_fields( $keys, $nav['fields'], $backend_populate['plugin_name'] ); ?>
 							</div>
 							
 						
@@ -38,7 +38,7 @@
 				}
 			}
 		?>
-		<p class="submit"><input type="submit" name="update" class="button-primary" value="Save Settings"></p>
+		<p class="submit"><input type="submit" name="setting-custom" class="button-primary" value="Save Settings"></p>
 		</form>
 	</div>
 

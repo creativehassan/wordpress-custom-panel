@@ -1,14 +1,32 @@
 <?php
 if ( ! class_exists( 'class_setting_page' ) ) {
     class class_setting_page {
-        public function __construct() {
-			//silent constructor
+		var $app_fields = array();
+        public function __construct($fields = array()) {
+			$this->app_fields = $fields;
+			if(isset($this->app_fields['plugin_name'])){
+				$plugin_name = $this->app_fields['plugin_name'];
+				if(isset($_POST['nato_setting'][$plugin_name])){
+					foreach($_POST['nato_setting'][$plugin_name] as $plugin_data){
+						foreach($plugin_data as $key => $data){
+							if(isset($plugin_data[$key])){
+								$field_value = (($plugin_data[$key]) ? $plugin_data[$key] : '');
+								update_option('nato_setting_'. $plugin_name . '_' .$key,$field_value);
+							}
+						}
+					}
+				}
+			} else {
+				echo "Please add plugin name in configuration array";
+			}
+			$this->coresol_render_fields($this->app_fields);
         }
 		
 		function coresol_render_fields( $configurations = array() ){
 			$backend_populate = array(
 				'title' => 'Heading',
 				'description' => 'Description Text', 
+				'plugin_name' => 'plugin', 
 				'nav' => array(
 					array(
 						'key' => 'welcome',
@@ -66,7 +84,7 @@ if ( ! class_exists( 'class_setting_page' ) ) {
 			$backend_populate = array_merge($backend_populate, $configurations);
 			include_once( 'template/coresol-setting.php' );
 		}
-		public function coresol_generate_fields( $fields = array() ){
+		public function coresol_generate_fields( $keys, $fields = array(), $plugin_name ){
 			if(!empty($fields)){
 				foreach($fields as $key => $field){
 					switch($field['type']){

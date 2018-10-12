@@ -1,11 +1,15 @@
 <h4><?php echo $field['label']; ?></h4>
 <p><?php echo $field['description']; ?></p>
+<?php 
+$field_val = get_option('nato_setting_'. $plugin_name . '_' .$field['name']);
+$field_val = (($field_val) ? $field_val : $field['value']);
+?>
 <p>
 	<?php if($field['richtextarea'] == false){ ?>
-		<textarea name="<?php echo $field['name']; ?>" value="<?php echo $field['value']; ?>" placeholder="<?php echo $field['placeholder']; ?>" class="<?php echo $field['class']; ?>" id="<?php echo $field['id']; ?>" style="width:100%; height:250px;"></textarea>
+		<textarea name="nato_setting[<?php echo $plugin_name; ?>][<?php echo $keys;?>][<?php echo $field['name']; ?>]" value="<?php echo $field_val; ?>" placeholder="<?php echo $field['placeholder']; ?>" class="<?php echo $field['class']; ?>" id="<?php echo $field['id']; ?>" style="width:100%; height:250px;"></textarea>
 	<?php } else {
-			$content = esc_textarea( $field['value'] );
-			$editor_id = $field['name'];
+			$content = esc_textarea( $field_val );
+			$editor_id = 'nato_setting['.$plugin_name.']['. $keys .']['. $field['name'] .']';
 			$settings =   array(
 				'wpautop' => true, // use wpautop?
 				'media_buttons' => true, // show insert/upload button(s)

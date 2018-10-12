@@ -24,7 +24,6 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 			// register_activation_hook( __FILE__,  array( $this, 'coresol_setting_plugin_create_db'));
 			add_action( 'plugins_loaded', array( $this, 'coresol_setting_plugin_textdomain' ));
 			include_once( 'include/class_setting_page.php' );
-			$this->class_setting_page = new class_setting_page();
         }
 		
 		
@@ -43,6 +42,7 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 			$backend_populate = array(
 				'title' => 'Heading',
 				'description' => 'Description Text', 
+				'plugin_name' => 'plugin', 
 				'nav' => array(
 					array(
 						'key' => 'welcome',
@@ -54,7 +54,7 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 								'type' => 'text',
 								'label' => 'NOTE: This applies to all sites on the network.',
 								'description' => 'Description Text', 
-								'name' => 'name',
+								'name' => 'first_name',
 								'value' => '',
 								'placeholder' => 'My own text',
 								'id' => '',
@@ -64,7 +64,7 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 								'type' => 'password',
 								'label' => 'This applies to all sites on the network.',
 								'description' => 'Description Text', 
-								'name' => 'date',
+								'name' => 'password',
 								'value' => '',
 								'placeholder' => 'Shah',
 								'id' => '',
@@ -83,7 +83,7 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 							),
 							array(
 								'type' => 'hidden',
-								'name' => 'date',
+								'name' => 'hidden',
 								'value' => '10',
 								'id' => '',
 								'class' => ''
@@ -92,7 +92,7 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 								'type' => 'url',
 								'label' => 'This applies to all sites on the network.',
 								'description' => 'Description Text', 
-								'name' => 'date',
+								'name' => 'url',
 								'value' => '',
 								'placeholder' => 'Shah',
 								'id' => '',
@@ -111,7 +111,7 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 							array(
 								'type' => 'checkbox',
 								'label' => 'Content Editor',
-								'name' => 'just',
+								'name' => 'checkbox_1',
 								'value' => '',
 								'id' => '',
 								'class' => '',
@@ -120,7 +120,7 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 							array(
 								'type' => 'radio',
 								'label' => 'Content Editor',
-								'name' => 'just',
+								'name' => 'radio',
 								'value' => '',
 								'id' => '',
 								'class' => '',
@@ -137,7 +137,7 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 							array(
 								'type' => 'text',
 								'label' => 'NOTE: This applies to all sites on the network.',
-								'name' => 'name',
+								'name' => 'last_name',
 								'value' => '',
 								'placeholder' => 'My own text',
 								'id' => '',
@@ -146,7 +146,7 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 							array(
 								'type' => 'checkbox',
 								'label' => 'Content Editor',
-								'name' => 'just',
+								'name' => 'checkbox_2',
 								'value' => '',
 								'id' => '',
 								'class' => '',
@@ -156,16 +156,14 @@ if ( ! class_exists( 'coresol_setting_page' ) ) {
 					) 
 				)
 			);
-			$this->class_setting_page->coresol_render_fields($backend_populate);
+			$this->class_setting_page = new class_setting_page($backend_populate);
 		}
 		
 		// Update CSS within in Admin
 		public function admin_style_scripts() {
-			/* wp_enqueue_style( 'wp-color-picker');
-			wp_enqueue_script( 'wp-color-picker');
-			wp_enqueue_script( 'jquery-ui-sortable' ); */
 			wp_enqueue_style('coresol-setting-page-admin', plugin_dir_url( __FILE__ ) . 'css/coresol-setting-admin.css');
 			wp_register_style( 'coresol-jquery-ui-datepicker', plugin_dir_url( __FILE__ ) . 'css/coresol-datepicker.css', false, false, false );
+			
 			wp_enqueue_script('coresol-setting-page-admin', plugin_dir_url( __FILE__ ) . 'js/coresol-setting-admin.js');
 		}
 		
